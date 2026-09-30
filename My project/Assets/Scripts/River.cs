@@ -1,19 +1,17 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
+using System.Collections.Generic;
 
-public class BoardP1 : MonoBehaviour
+public class River : MonoBehaviour
 {
+ 
     public Card2 cardScript;
-    public float p1HandValue;
-
+    public float riverValue;
     public bool jackOnBoard;
-
-    public TextMeshProUGUI P1HandValueText;
+    public TextMeshProUGUI RiverValueText;
+    
     private readonly HashSet<Collider> objectsInsideTrigger = new HashSet<Collider>();
     private readonly HashSet<Card2> jackAffectedCards = new HashSet<Card2>();
-
-
     void OnTriggerEnter(Collider other)
     {
         objectsInsideTrigger.Add(other);
@@ -47,7 +45,7 @@ public class BoardP1 : MonoBehaviour
     {
         bool queenOnBoard = HasTagInsideTrigger("Queen");
         HashSet<Card2> cardsInside = GetCardsInsideTrigger();
-        p1HandValue = 0f;
+        riverValue = 0f;
 
         foreach (Card2 card in cardsInside)
         {
@@ -59,9 +57,9 @@ public class BoardP1 : MonoBehaviour
             if (queenOnBoard)
                 cardValue *= 2f;
 
-            p1HandValue += cardValue;
+            riverValue += cardValue;
             Debug.Log($"Current card is {card.name}, effective value: {cardValue}");
-            P1HandValueText.text = "P1 Hand Value: " + p1HandValue.ToString();
+            RiverValueText.text = "River Value: " + riverValue.ToString();
         }
     }
 
@@ -91,9 +89,11 @@ public class BoardP1 : MonoBehaviour
 
     void Update()
     {
-        P1HandValueText.text = "P1 Hand Value: " + p1HandValue.ToString();
+        RiverValueText.text = "River Value: " + riverValue.ToString();
     }
 }
 
+   
+    
 
 

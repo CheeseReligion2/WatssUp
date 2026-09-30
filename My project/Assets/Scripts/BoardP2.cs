@@ -2,14 +2,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 
-public class BoardP1 : MonoBehaviour
+public class BoardP2 : MonoBehaviour
 {
     public Card2 cardScript;
-    public float p1HandValue;
+    public float p2HandValue;
 
     public bool jackOnBoard;
 
-    public TextMeshProUGUI P1HandValueText;
+    public TextMeshProUGUI P2HandValueText;
     private readonly HashSet<Collider> objectsInsideTrigger = new HashSet<Collider>();
     private readonly HashSet<Card2> jackAffectedCards = new HashSet<Card2>();
 
@@ -47,7 +47,7 @@ public class BoardP1 : MonoBehaviour
     {
         bool queenOnBoard = HasTagInsideTrigger("Queen");
         HashSet<Card2> cardsInside = GetCardsInsideTrigger();
-        p1HandValue = 0f;
+        p2HandValue = 0f;
 
         foreach (Card2 card in cardsInside)
         {
@@ -59,9 +59,9 @@ public class BoardP1 : MonoBehaviour
             if (queenOnBoard)
                 cardValue *= 2f;
 
-            p1HandValue += cardValue;
+            p2HandValue += cardValue;
             Debug.Log($"Current card is {card.name}, effective value: {cardValue}");
-            P1HandValueText.text = "P1 Hand Value: " + p1HandValue.ToString();
+            P2HandValueText.text = "P2 Hand Value: " + p2HandValue.ToString();
         }
     }
 
@@ -91,7 +91,7 @@ public class BoardP1 : MonoBehaviour
 
     void Update()
     {
-        P1HandValueText.text = "P1 Hand Value: " + p1HandValue.ToString();
+        P2HandValueText.text = "P2 Hand Value: " + p2HandValue.ToString();
     }
 }
 

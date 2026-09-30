@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class testing : MonoBehaviour
+public class CardGrabber : MonoBehaviour
 {
     public bool Selected;
     private Plane dragPlane;
@@ -18,7 +18,7 @@ public class testing : MonoBehaviour
         {
             Ray ray = mainCamera.ScreenPointToRay(mouse.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit) &&
-                hit.collider.GetComponentInParent<testing>() == this)
+                hit.collider.GetComponentInParent<CardGrabber>() == this)
             {
                 Selected = true;
                 dragPlane = new Plane(-mainCamera.transform.forward, transform.position);
