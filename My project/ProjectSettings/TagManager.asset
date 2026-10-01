@@ -8,6 +8,7 @@ TagManager:
   - Queen
   - King
   - Jack
+  - Board
   layers:
   - Default
   - TransparentFX

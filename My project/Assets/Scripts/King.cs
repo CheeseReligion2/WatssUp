@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class King : MonoBehaviour
+public class King : Card2
 {
     public bool isOverACard;
     

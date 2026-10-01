@@ -27,6 +27,7 @@ public class BoardP1 : MonoBehaviour
             Card2 enteredCard = other.GetComponentInParent<Card2>();
             if (enteredCard != null)
                 cardScript = enteredCard;
+                cardScript.isOnBoard = true; // Set the isOnBoard property to true when the card enters the trigger
         }
 
         RecalculateHandValue();
@@ -34,8 +35,11 @@ public class BoardP1 : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+     Card2 exitedCard = other.GetComponentInParent<Card2>();   
         objectsInsideTrigger.Remove(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
+        exitedCard.isOnBoard = false; // Set the isOnBoard property to false when the card exits the trigger
+        cardScript = null;
 
         RecalculateHandValue();
     }

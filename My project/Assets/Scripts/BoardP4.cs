@@ -24,8 +24,11 @@ public class BoardP4 : MonoBehaviour
         if (other.gameObject.CompareTag("Card"))
         {
             Card2 enteredCard = other.GetComponentInParent<Card2>();
+            
             if (enteredCard != null)
                 cardScript = enteredCard;
+                cardScript.isOnBoard = true;
+                
         }
 
         RecalculateHandValue();
@@ -35,6 +38,8 @@ public class BoardP4 : MonoBehaviour
     {
         objectsInsideTrigger.Remove(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
+        cardScript.isOnBoard = false;
+        cardScript = null;
 
         RecalculateHandValue();
     }

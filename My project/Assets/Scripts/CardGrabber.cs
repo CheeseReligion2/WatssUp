@@ -3,9 +3,17 @@ using UnityEngine.InputSystem;
 
 public class CardGrabber : MonoBehaviour
 {
-    public bool Selected;
+    public bool selected;
+
+    public bool placed;
     private Plane dragPlane;
     private Vector3 dragOffset;
+
+    public GameObject grabbedCard;
+
+    public Card2 cardScript;
+
+    public HandManagerScript handManagerScript;
 
     void Update()
     {
@@ -20,14 +28,17 @@ public class CardGrabber : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit) &&
                 hit.collider.GetComponentInParent<CardGrabber>() == this)
             {
-                Selected = true;
+                grabbedCard = hit.collider.gameObject;
+                cardScript = grabbedCard.GetComponent<Card2>();
+
+                selected = true;
                 dragPlane = new Plane(-mainCamera.transform.forward, transform.position);
                 if (dragPlane.Raycast(ray, out float distance))
                     dragOffset = transform.position - ray.GetPoint(distance);
             }
         }
 
-        if (Selected && mouse.leftButton.isPressed)
+        if (selected && mouse.leftButton.isPressed)
         {
             Ray ray = mainCamera.ScreenPointToRay(mouse.position.ReadValue());
             if (dragPlane.Raycast(ray, out float distance))
@@ -35,6 +46,16 @@ public class CardGrabber : MonoBehaviour
         }
 
         if (mouse.leftButton.wasReleasedThisFrame)
-            Selected = false;
+        {
+                        selected = false;
+                        /*if (cardScript.isOnBoard == false)
+                        {
+                            handManagerScript.UpdateCardPositions();
+                        }
+          */
+        }
+            
     }
 }
+
+

@@ -13,8 +13,9 @@ public class HandManagerScript : MonoBehaviour
     [SerializeField] private Deck deck;
 
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private float spaceB = 0.3f;
 
-    private List<GameObject> handCards = new List<GameObject>();
+    [SerializeField] private List<GameObject> handCards = new List<GameObject>();
 
     private Dictionary<GameObject, GameObject> cardPrefabs =
     new Dictionary<GameObject, GameObject>();
@@ -46,12 +47,12 @@ public class HandManagerScript : MonoBehaviour
     }
 
 
-    private void UpdateCardPositions()
+    public void UpdateCardPositions()
     {
         if (handCards.Count == 0)
             return;
 
-        float cardSpacing = 0.3f / maxHandSize;
+        float cardSpacing = spaceB / maxHandSize;
 
         float firstCardPosition =
             0.5f - (handCards.Count - 1) * cardSpacing / 2f;

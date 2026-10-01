@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2760330056727030308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2595158493130294220}
+  - component: {fileID: 400638164265291158}
+  m_Layer: 0
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2595158493130294220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760330056727030308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.09554, y: -0, z: 66.01534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &400638164265291158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760330056727030308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295f4c25640355b4cb25f9e3476b203c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Deck
+  deckList:
+  - cardPrefab: {fileID: 7352840347101752929, guid: f8e4451bb8f77e341a2f695d2c1be10a, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 0af348adff88dfd43a433bdd9026f85e, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 8e9c0c744053d2841b938baa6998087c, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 9930529668f36844c99a111cc1078526, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 27bc8274f17ce3e4c9f65173b18325e1, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 1894fb2cdeb44cf418b6fe19c2d3cfd8, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: f0a8b9446734a07429c5b4594c663c73, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 647f1ac9b4f99294888addf9bbd2fa6e, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: f41141e296804ef46bc230c038d55931, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: c2bce73537138cb4aab73d5ddfd33d85, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: cb90d4f7ec247994cbcf943d6d0769b1, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: f667bd0cae3a8b34488ad4c904e01dc1, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: edaf4dba29842f047b8af91744da7400, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: ffdf211cf7929ee4b884b549729b04f7, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 279f114513455b845a59d26c8c726536, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 3bf70a50b1bfcd442a11049763425a4a, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: a858be6abdebe9c4abd72d39cd24d225, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: 0f1dc1ac72ab1f04688c5ee4c6f92b09, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: eb7e88ff041355c41853d0b0fa181e8b, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: b41ceb345de2ec24cb037a4e89bbd85a, type: 3}
+    copies: 2
+  - cardPrefab: {fileID: 7352840347101752929, guid: f314a8250f890914ca717d7151228498, type: 3}
+    copies: 4
+  - cardPrefab: {fileID: 7352840347101752929, guid: 62bfd45573fc514438b21c4087355a3b, type: 3}
+    copies: 4
+  - cardPrefab: {fileID: 7352840347101752929, guid: ed1f45110c6b21f439d04d57b4524717, type: 3}
+    copies: 4
+  - cardPrefab: {fileID: 7352840347101752929, guid: fdc33b0bfcc0fc64cb10d5143b14e93e, type: 3}
+    copies: 2

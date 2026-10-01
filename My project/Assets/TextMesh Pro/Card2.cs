@@ -4,6 +4,7 @@ public class Card2 : MonoBehaviour
 {
     
     public float value = 2f;
+    public bool isOnBoard = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

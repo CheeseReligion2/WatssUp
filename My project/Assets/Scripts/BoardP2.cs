@@ -10,21 +10,30 @@ public class BoardP2 : MonoBehaviour
 
     public bool jackOnBoard;
 
+    public Card2 cardOnBoard1; 
+
     public TextMeshProUGUI P2HandValueText;
     private readonly HashSet<Collider> objectsInsideTrigger = new HashSet<Collider>();
     private bool lastRiverQueenState;
+    [SerializeField] private GameObject cardOnBoard;
 
 
     void OnTriggerEnter(Collider other)
     {
         objectsInsideTrigger.Add(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
-
-        if (other.gameObject.CompareTag("Card"))
+         if (other.gameObject.CompareTag("Jack") || other.gameObject.CompareTag("Queen"))
         {
+            cardOnBoard = other.gameObject;
+        }
+        if (other.gameObject.CompareTag("Card"))
+        { 
             Card2 enteredCard = other.GetComponentInParent<Card2>();
+        
             if (enteredCard != null)
                 cardScript = enteredCard;
+                cardScript.isOnBoard = true;
+                
         }
 
         RecalculateHandValue();
@@ -32,6 +41,7 @@ public class BoardP2 : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        cardScript.isOnBoard = false;
         objectsInsideTrigger.Remove(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
 

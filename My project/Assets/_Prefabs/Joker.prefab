@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Joker
       objectReference: {fileID: 0}
+    - target: {fileID: 429142444269643422, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 429142444269643422, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
+      propertyPath: m_TagString
+      value: Card
+      objectReference: {fileID: 0}
     - target: {fileID: 1392066606342656273, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
       propertyPath: m_Sprite
       value: 

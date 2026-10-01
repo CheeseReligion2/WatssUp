@@ -25,6 +25,8 @@ public class BoardP3 : MonoBehaviour
             Card2 enteredCard = other.GetComponentInParent<Card2>();
             if (enteredCard != null)
                 cardScript = enteredCard;
+                cardScript.isOnBoard = true;
+                
         }
 
         RecalculateHandValue();
@@ -34,6 +36,8 @@ public class BoardP3 : MonoBehaviour
     {
         objectsInsideTrigger.Remove(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
+        cardScript.isOnBoard = false;
+        cardScript = null;
 
         RecalculateHandValue();
     }
