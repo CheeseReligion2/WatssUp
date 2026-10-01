@@ -14,6 +14,9 @@ public class HandManagerScript : MonoBehaviour
 
     [SerializeField] private Transform spawnPoint;
 
+    [SerializeField] private Transform playerHandOne;
+
+
     private List<GameObject> handCards = new List<GameObject>();
 
     private Dictionary<GameObject, GameObject> cardPrefabs =
@@ -21,6 +24,7 @@ public class HandManagerScript : MonoBehaviour
 
     private void Update()
     {
+
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             Draw();
@@ -30,6 +34,8 @@ public class HandManagerScript : MonoBehaviour
         {
             ReturnLastDrawnCard();
         }
+
+            
     }
 
     private void Draw()
@@ -38,7 +44,7 @@ public class HandManagerScript : MonoBehaviour
 
         GameObject cardPrefab = deck.DrawCard(); // makes the specific card drawn the top card of the deck, defined in the deck script
 
-        GameObject newCard = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject newCard = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, playerHandOne); // spawns the card drawn at the spawn point, with no rotation, and as a child of the player hand
         handCards.Add(newCard);
         cardPrefabs.Add(newCard, cardPrefab); // remebers each card in hand so they can be put back into the deck 
 
@@ -129,7 +135,18 @@ public class HandManagerScript : MonoBehaviour
             deck.ReturnCardToDeck(originalPrefab);
             Destroy(card);
         });
+
+
+
+       
+
     }
+
+    private void hoverCard(GameObject card)
+    {
+
+    }
+    
 
 
 

@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 429142444269643422, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
       propertyPath: m_Name
-      value: CardBase
+      value: -3
       objectReference: {fileID: 0}
+    - target: {fileID: 1392066606342656273, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -153470529, guid: df902d591e891504482bd70e4f60e064, type: 3}
     - target: {fileID: 6845233858341912332, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
