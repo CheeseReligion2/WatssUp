@@ -1,86 +1,84 @@
+using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+
+[System.Serializable]
+public class DeckEntry
+{
+    public GameObject cardPrefab;
+    public int copies = 1;
+}
 
 public class Deck : MonoBehaviour
 {
-    public static Decklist Instance { get; private set; }
+    [SerializeField] private List<DeckEntry> deckList;
 
-    [SerializeField] private CardCollector mainDeck;
-    [SerializeField] private Card cardPrefab; // prefab, which will house different CardData
-
-    [SerializeField] private Canvas canvas; // reference to the canvas, where the cards will be instantiated                                               
-
-    private List<Card> deckPile;
-    public List<Card> HandPile { get; private set; } = new();
-
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            
-        }
-
-
-    }
+    private List<GameObject> drawPile = new List <GameObject>();
 
 
     private void Start()
     {
-        InstantiateDeck();
-
-
-    }
-    private void InstantiateDeck()
-    {
-
-        Card card = Instantiate(cardPrefab, canvas.transform);
-
-        for (int i = 0; i < mainDeck.collectedCards.Count; i++)
-        {
-            Card card = Instantiate(cardPrefab, canvas.transform);
-            card.SetUp(mainDeck.collectedCards[i]);
-            mainDeck.Add(card);
-            card.gameObject.SetActive(false); // later will activate the card when drawn to hand
-        }
+        DeckConstruct();
         ShuffleDeck();
-
-
     }
 
-    private void ShuffleDeck(){
-        for (int i = mainDeck.Count - 1; i > 0; i--)
+    private void Update()
+    {
+       
+    }
+
+    private void DeckConstruct()
+    {
+        drawPile.Clear();
+
+        foreach (DeckEntry entry in deckList)
+        {
+            for (int i = 0; i < entry.copies; i++)
+            {
+                drawPile.Add(entry.cardPrefab); //adds the specific card wanted equal to the listed amount of times into the draw pile
+            }
+        }
+        Debug.Log("Cards in deck: " + drawPile.Count);
+    }
+
+    private void ShuffleDeck()
+    {
+        for (int i = drawPile.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
-            Card temp = mainDeck[i];
-            mainDeck[i] = mainDeck[j];
-            mainDeck[j] = temp;
-        }
 
+            GameObject temp = drawPile[i];
+            drawPile[i] = drawPile[j];
+            drawPile[j] = temp;
+        }
     }
-    public void DrawHand(int numberOfCards = 3)
+
+    public GameObject DrawCard()
     {
-        for (int i = 0; i < numberOfCards; i++)
-        {
-            if (mainDeck.Count <= 0){
-                ShuffleDeck();
-                
-            }
-            HandPile.Add(mainDeck[0]); // add the first card from the main deck to the hand
-            mainDeck[0].gameObject.SetActive(true); // activate the card when drawn to hand
-            mainDeck.RemoveAt(0); // remove the first card from the main deck after drawing it
+        int topCardIndex = drawPile.Count - 1; // the card wanted to draw becomes whatever the count is minus one (minus cus things start counting from 0)
+        GameObject card = drawPile[topCardIndex]; // identifies and the thing and calls it a card
+        drawPile.RemoveAt(topCardIndex); // removes the card from teh deck
 
-        }
+        Debug.Log("Drew: " + card.name);
+        Debug.Log("Cards remaining: " + drawPile.Count);
+
+        return card; // gives the thing wahtever asked for the card :3
+
+
+       
     }
 
+    public void ReturnCardToDeck(GameObject cardPrefab)
+    {
+        drawPile.Add(cardPrefab);
+        ShuffleDeck();
 
+        Debug.Log("Returned: " + cardPrefab.name);
+        Debug.Log("Cards in deck: " + drawPile.Count);
+    }
 
 }
-
-
 
 

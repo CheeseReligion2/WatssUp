@@ -6,15 +6,18 @@ using UnityEngine.InputSystem;
 
 public class HandManagerScript : MonoBehaviour
 {
-    [SerializeField] private int maxHandSize; 
-
-    [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private int maxHandSize;
 
     [SerializeField] private SplineContainer splineContainer;
+
+    [SerializeField] private Deck deck;
 
     [SerializeField] private Transform spawnPoint;
 
     private List<GameObject> handCards = new List<GameObject>();
+
+    private Dictionary<GameObject, GameObject> cardPrefabs =
+    new Dictionary<GameObject, GameObject>();
 
     private void Update()
     {
@@ -22,14 +25,23 @@ public class HandManagerScript : MonoBehaviour
         {
             Draw();
         }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            ReturnLastDrawnCard();
+        }
     }
 
     private void Draw()
     {
         if (handCards.Count >= maxHandSize) return;
 
+        GameObject cardPrefab = deck.DrawCard(); // makes the specific card drawn the top card of the deck, defined in the deck script
+
         GameObject newCard = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity);
         handCards.Add(newCard);
+        cardPrefabs.Add(newCard, cardPrefab); // remebers each card in hand so they can be put back into the deck 
+
         UpdateCardPositions();
     }
 
@@ -62,13 +74,66 @@ public class HandManagerScript : MonoBehaviour
 
 
             Quaternion rotation = Quaternion.LookRotation(worldUp, -worldTangent);
-            rotation *= Quaternion.Euler(0f, 90f, 90f);
+            rotation *= Quaternion.Euler(0f, 90f, 90f);// flips so correct
+            rotation *= Quaternion.Euler(0f, 180f, 0f);
 
-            
             handCards[i].transform.DOMove(worldPosition, 0.25f);
             handCards[i].transform.DORotateQuaternion(rotation, 0.25f);
         }
+
+
+
     }
+
+    public void ReturnLastDrawnCard()
+    {
+        if (handCards.Count > 0)
+        {
+            GameObject lastCard = handCards[handCards.Count - 1];
+            ReturnCard(lastCard);
+        }
+    }
+
+
+    public void ReturnCard(GameObject card)
+    {
+        if (!cardPrefabs.ContainsKey(card))
+            return;
+
+        GameObject originalPrefab = cardPrefabs[card];
+
+        // Remove it from the hand immediately
+        handCards.Remove(card);
+        cardPrefabs.Remove(card);
+
+        // Stop any hand-position tween currently affecting this card
+        card.transform.DOKill();
+
+        
+        UpdateCardPositions();
+
+        // Animate this card back to the draw pile
+        Sequence returnSequence = DOTween.Sequence();
+
+        returnSequence.Append(
+            card.transform.DOMove(spawnPoint.position, 0.35f)
+        );
+
+        returnSequence.Join(
+            card.transform.DORotateQuaternion(spawnPoint.rotation, 0.35f)
+        );
+
+        // Only actually return/destroy it once the animation finishes
+        returnSequence.OnComplete(() =>
+        {
+            deck.ReturnCardToDeck(originalPrefab);
+            Destroy(card);
+        });
+    }
+
+
+
+}
 
 
     
@@ -77,4 +142,3 @@ public class HandManagerScript : MonoBehaviour
 
 
 
-}
