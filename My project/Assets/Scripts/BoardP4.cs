@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+//this script is a copy of BoardP1.cs, it is the exact same script, i am lazy so wont rewrite the comments, but it is for player 4, so all the p1 references are now p4 references
 
 public class BoardP4 : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class BoardP4 : MonoBehaviour
 
     public TextMeshProUGUI P4HandValueText;
     private readonly HashSet<Collider> objectsInsideTrigger = new HashSet<Collider>();
-    private readonly HashSet<Card2> jackAffectedCards = new HashSet<Card2>();
+    private bool lastRiverQueenState;
 
 
     void OnTriggerEnter(Collider other)
@@ -23,11 +24,8 @@ public class BoardP4 : MonoBehaviour
         if (other.gameObject.CompareTag("Card"))
         {
             Card2 enteredCard = other.GetComponentInParent<Card2>();
-            {
+            if (enteredCard != null)
                 cardScript = enteredCard;
-                if (jackOnBoard)
-                    jackAffectedCards.Add(enteredCard);
-            }
         }
 
         RecalculateHandValue();
@@ -38,15 +36,12 @@ public class BoardP4 : MonoBehaviour
         objectsInsideTrigger.Remove(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
 
-        HashSet<Card2> cardsStillInside = GetCardsInsideTrigger();
-        jackAffectedCards.RemoveWhere(card => !cardsStillInside.Contains(card));
-
         RecalculateHandValue();
     }
 
     private void RecalculateHandValue()
     {
-        bool queenOnBoard = HasTagInsideTrigger("Queen");
+        bool queenOnRiver = riverScript != null && riverScript.QueenOnRiver;
         HashSet<Card2> cardsInside = GetCardsInsideTrigger();
         p4HandValue = 0f;
 
@@ -54,10 +49,10 @@ public class BoardP4 : MonoBehaviour
         {
             float cardValue = card.value;
 
-            if (jackAffectedCards.Contains(card))
+            if (jackOnBoard)
                 cardValue *= -1f;
 
-            if (queenOnBoard)
+            if (queenOnRiver)
                 cardValue *= 2f;
 
             p4HandValue += cardValue;
@@ -83,7 +78,11 @@ public class BoardP4 : MonoBehaviour
 
         foreach (Collider insideCollider in objectsInsideTrigger)
         {
+            if (insideCollider == null || !insideCollider.gameObject.CompareTag("Card"))
+                continue;
+
             Card2 card = insideCollider.GetComponentInParent<Card2>();
+            if (card != null)
                 cards.Add(card);
         }
 
@@ -92,7 +91,21 @@ public class BoardP4 : MonoBehaviour
 
     void Update()
     {
-        P4HandValueText.text = "P4 Hand Value: " + p4HandValue + riverScript.riverValue.ToString();
+        bool queenOnRiver = riverScript != null && riverScript.QueenOnRiver;
+        if (queenOnRiver != lastRiverQueenState)
+        {
+            lastRiverQueenState = queenOnRiver;
+            RecalculateHandValue();
+        }
+
+        if (riverScript != null && P4HandValueText != null)
+        {
+            float totalValue = p4HandValue + riverScript.riverValue;
+            if (HasTagInsideTrigger("Queen"))
+                totalValue *= 2f;
+
+            P4HandValueText.text = "P4 Hand Value: " + totalValue;
+        }
     }
 }
 

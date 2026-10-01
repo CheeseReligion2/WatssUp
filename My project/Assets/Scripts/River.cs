@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-
+//this script is a copy of BoardP1.cs, but it does not need to check for a queen on the river, or for other players, so it is a bit simpler, but it still has the same basic functionality of checking for cards and jacks on the river and calculating the total value of the cards on the river
 public class River : MonoBehaviour
 {
  
@@ -11,7 +11,9 @@ public class River : MonoBehaviour
     public TextMeshProUGUI RiverValueText;
     
     private readonly HashSet<Collider> objectsInsideTrigger = new HashSet<Collider>();
-    private readonly HashSet<Card2> jackAffectedCards = new HashSet<Card2>();
+
+    public bool QueenOnRiver => HasTagInsideTrigger("Queen");
+
     void OnTriggerEnter(Collider other)
     {
         objectsInsideTrigger.Add(other);
@@ -20,11 +22,8 @@ public class River : MonoBehaviour
         if (other.gameObject.CompareTag("Card"))
         {
             Card2 enteredCard = other.GetComponentInParent<Card2>();
-            {
+            if (enteredCard != null)
                 cardScript = enteredCard;
-                if (jackOnBoard)
-                    jackAffectedCards.Add(enteredCard);
-            }
         }
 
         RecalculateHandValue();
@@ -34,9 +33,6 @@ public class River : MonoBehaviour
     {
         objectsInsideTrigger.Remove(other);
         jackOnBoard = HasTagInsideTrigger("Jack");
-
-        HashSet<Card2> cardsStillInside = GetCardsInsideTrigger();
-        jackAffectedCards.RemoveWhere(card => !cardsStillInside.Contains(card));
 
         RecalculateHandValue();
     }
@@ -51,7 +47,7 @@ public class River : MonoBehaviour
         {
             float cardValue = card.value;
 
-            if (jackAffectedCards.Contains(card))
+            if (jackOnBoard)
                 cardValue *= -1f;
 
             if (queenOnBoard)
@@ -80,7 +76,11 @@ public class River : MonoBehaviour
 
         foreach (Collider insideCollider in objectsInsideTrigger)
         {
+            if (insideCollider == null || !insideCollider.gameObject.CompareTag("Card"))
+                continue;
+
             Card2 card = insideCollider.GetComponentInParent<Card2>();
+            if (card != null)
                 cards.Add(card);
         }
 
