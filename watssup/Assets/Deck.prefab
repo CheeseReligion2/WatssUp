@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1444043928034088337
+--- !u!1 &2760330056727030308
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1506650225607974611}
-  - component: {fileID: 927198314942736739}
+  - component: {fileID: 2595158493130294220}
+  - component: {fileID: 400638164265291158}
   m_Layer: 0
   m_Name: Deck
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1506650225607974611
+--- !u!4 &2595158493130294220
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444043928034088337}
+  m_GameObject: {fileID: 2760330056727030308}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: -6.09554, y: -0, z: 66.01534}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &927198314942736739
+--- !u!114 &400638164265291158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444043928034088337}
+  m_GameObject: {fileID: 2760330056727030308}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 295f4c25640355b4cb25f9e3476b203c, type: 3}
@@ -92,6 +92,4 @@ MonoBehaviour:
   - cardPrefab: {fileID: 7352840347101752929, guid: ed1f45110c6b21f439d04d57b4524717, type: 3}
     copies: 4
   - cardPrefab: {fileID: 7352840347101752929, guid: fdc33b0bfcc0fc64cb10d5143b14e93e, type: 3}
-    copies: 1
-  - cardPrefab: {fileID: 7352840347101752929, guid: 3a62b0a5a2179f24ea5689033c461fad, type: 3}
-    copies: 1
+    copies: 2

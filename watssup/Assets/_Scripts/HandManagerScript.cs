@@ -12,19 +12,18 @@ public class HandManagerScript : MonoBehaviour
 
     [SerializeField] private Deck deck;
 
+    [SerializeField] private Transform targetParent;
+
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private float spaceB = 0.3f;
 
-    [SerializeField] private Transform playerHandOne;
-
-
-    private List<GameObject> handCards = new List<GameObject>();
+    [SerializeField] private List<GameObject> handCards = new List<GameObject>();
 
     private Dictionary<GameObject, GameObject> cardPrefabs =
     new Dictionary<GameObject, GameObject>();
 
     private void Update()
     {
-
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             Draw();
@@ -34,8 +33,6 @@ public class HandManagerScript : MonoBehaviour
         {
             ReturnLastDrawnCard();
         }
-
-            
     }
 
     private void Draw()
@@ -44,7 +41,7 @@ public class HandManagerScript : MonoBehaviour
 
         GameObject cardPrefab = deck.DrawCard(); // makes the specific card drawn the top card of the deck, defined in the deck script
 
-        GameObject newCard = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, playerHandOne); // spawns the card drawn at the spawn point, with no rotation, and as a child of the player hand
+        GameObject newCard = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity, targetParent);
         handCards.Add(newCard);
         cardPrefabs.Add(newCard, cardPrefab); // remebers each card in hand so they can be put back into the deck 
 
@@ -52,12 +49,12 @@ public class HandManagerScript : MonoBehaviour
     }
 
 
-    private void UpdateCardPositions()
+    public void UpdateCardPositions()
     {
         if (handCards.Count == 0)
             return;
 
-        float cardSpacing = 0.3f / maxHandSize;
+        float cardSpacing = spaceB / maxHandSize;
 
         float firstCardPosition =
             0.5f - (handCards.Count - 1) * cardSpacing / 2f;
@@ -135,18 +132,7 @@ public class HandManagerScript : MonoBehaviour
             deck.ReturnCardToDeck(originalPrefab);
             Destroy(card);
         });
-
-
-
-       
-
     }
-
-    private void hoverCard(GameObject card)
-    {
-
-    }
-    
 
 
 
