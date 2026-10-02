@@ -15,6 +15,7 @@ public class CardGrabber : MonoBehaviour
 
     public HandManagerScript handManagerScript;
 
+
     void Update()
     {
         Mouse mouse = Mouse.current;
@@ -45,14 +46,21 @@ public class CardGrabber : MonoBehaviour
                 transform.position = ray.GetPoint(distance) + dragOffset;
         }
 
-        if (mouse.leftButton.wasReleasedThisFrame)
+        if (mouse.leftButton.wasReleasedThisFrame && selected)
         {
                         selected = false;
-                        /*if (cardScript.isOnBoard == false)
+                        
+                        
+                        
+                        
+                        
+                        if (cardScript.isOnBoard == true)
                         {
-                            handManagerScript.UpdateCardPositions();
+                            handManagerScript.handCards.Remove(this.gameObject);
+
+
                         }
-          */
+          
         }
             
     }

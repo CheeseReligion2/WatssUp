@@ -17,7 +17,7 @@ public class HandManagerScript : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spaceB = 0.3f;
 
-    [SerializeField] private List<GameObject> handCards = new List<GameObject>();
+    [SerializeField] public List<GameObject> handCards = new List<GameObject>();
 
     private Dictionary<GameObject, GameObject> cardPrefabs =
     new Dictionary<GameObject, GameObject>();
@@ -46,6 +46,7 @@ public class HandManagerScript : MonoBehaviour
         cardPrefabs.Add(newCard, cardPrefab); // remebers each card in hand so they can be put back into the deck 
 
         UpdateCardPositions();
+        newCard.GetComponent<CardGrabber>().handManagerScript = this; // sets the hand manager script to the card grabber script so it can access the return card function
     }
 
 
@@ -79,6 +80,8 @@ public class HandManagerScript : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(worldUp, -worldTangent);
             rotation *= Quaternion.Euler(0f, 90f, 90f);// flips so correct
             rotation *= Quaternion.Euler(0f, 180f, 0f);
+
+
 
             handCards[i].transform.DOMove(worldPosition, 0.25f);
             handCards[i].transform.DORotateQuaternion(rotation, 0.25f);
