@@ -9,16 +9,16 @@ public class HandManagerScript : MonoBehaviour
     [SerializeField] private int maxHandSize;
 
     [SerializeField] private SplineContainer splineContainer;
-
+    [SerializeField] private SplineContainer riverSplineContainer; 
     [SerializeField] private Deck deck;
 
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spaceB = 0.3f;
 
     [SerializeField] private List<GameObject> handCards = new List<GameObject>();
+    [SerializeField] private List<GameObject> riverCards = new List<GameObject>();
+    private Dictionary<GameObject, GameObject> cardPrefabs = new Dictionary<GameObject, GameObject>();
 
-    private Dictionary<GameObject, GameObject> cardPrefabs =
-    new Dictionary<GameObject, GameObject>();
 
     private void Update()
     {
@@ -33,7 +33,7 @@ public class HandManagerScript : MonoBehaviour
         }
     }
 
-    private void Draw()
+        public void Draw()
     {
         if (handCards.Count >= maxHandSize) return;
 
@@ -44,6 +44,51 @@ public class HandManagerScript : MonoBehaviour
         cardPrefabs.Add(newCard, cardPrefab); // remebers each card in hand so they can be put back into the deck 
 
         UpdateCardPositions();
+    }
+
+     public void DrawToRiver()
+    {
+
+        GameObject cardPrefab = deck.DrawCard(); // makes the specific card drawn the top card of the deck, defined in the deck script
+
+        GameObject newCard = Instantiate(cardPrefab, spawnPoint.position, Quaternion.identity);
+        handCards.Add(newCard);
+        cardPrefabs.Add(newCard, cardPrefab); // remebers each card in hand so they can be put back into the deck 
+        Vector3 riverPosition = new Vector3(8f, 0.55f, -3.75f); // Replace with the actual position of the river
+        newCard.transform.DOMove(riverPosition, 0.5f).SetEase(Ease.InOutSine); // Animate the card to the river position
+        newCard.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 0.5f).SetEase(Ease.InOutSine); // Animate the card rotation
+        riverCards.Add(newCard);
+
+
+        
+    }
+
+    public void UpdateRiverCardPositions()
+    {
+        if (riverCards.Count == 0)
+            return;
+
+        float cardSpacing = spaceB / maxHandSize;
+
+        float firstCardPosition =
+            0.5f - (riverCards.Count - 1) * cardSpacing / 2f;
+
+        Spline spline = riverSplineContainer.Spline;
+
+        for (int i = 0; i < riverCards.Count; i++)
+        {
+            float t = firstCardPosition + i * cardSpacing;
+
+            Vector3 localPosition = spline.EvaluatePosition(t);
+            Vector3 localTangent = spline.EvaluateTangent(t);
+            Vector3 localUp = spline.EvaluateUpVector(t);
+
+            Vector3 worldPosition = riverSplineContainer.transform.TransformPoint(localPosition);
+
+            Vector3 worldTangent = riverSplineContainer.transform.TransformDirection(localTangent);
+
+            Vector3 worldUp = riverSplineContainer.transform.TransformDirection(localUp);
+        }
     }
 
 
