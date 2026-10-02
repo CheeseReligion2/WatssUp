@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using DG.Tweening;
 
 public class CardGrabber : MonoBehaviour
 {
@@ -36,7 +38,11 @@ public class CardGrabber : MonoBehaviour
                 dragPlane = new Plane(-mainCamera.transform.forward, transform.position);
                 if (dragPlane.Raycast(ray, out float distance))
                     dragOffset = transform.position - ray.GetPoint(distance);
+
+                grabbedCard.transform.DORotateQuaternion(Quaternion.Euler(0, 0, 0), 0.5f); // Rotate the card to a flat orientation when grabbed
             }
+
+
         }
 
         if (selected && mouse.leftButton.isPressed)
@@ -56,10 +62,22 @@ public class CardGrabber : MonoBehaviour
                         
                         if (cardScript.isOnBoard == true)
                         {
+                            
+                        
                             handManagerScript.handCards.Remove(this.gameObject);
+                            handManagerScript.UpdateCardPositions(); // Update the card positions in the hand when the card is released
+                            
+                            
 
 
                         }
+    
+                        else
+                        {
+                          handManagerScript.UpdateCardPositions(); // Update the card positions in the hand when the card is released
+                        
+                        }
+
           
         }
             

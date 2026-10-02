@@ -74,6 +74,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 429142444269643422, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3739166892225412507}
+    - targetCorrespondingSourceObject: {fileID: 429142444269643422, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6782784816785218667}
   m_SourcePrefab: {fileID: 100100000, guid: f0b822f585df74a4c82af3de80891fef, type: 3}
 --- !u!1 &7352840347101752929 stripped
 GameObject:
@@ -95,7 +98,7 @@ MonoBehaviour:
   selected: 0
   placed: 0
   grabbedCard: {fileID: 0}
-  cardScript: {fileID: 0}
+  cardScript: {fileID: 6782784816785218667}
   handManagerScript: {fileID: 0}
 --- !u!65 &3739166892225412507
 BoxCollider:
@@ -118,3 +121,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.46, y: 0.64, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6782784816785218667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7352840347101752929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 561c6af40a81548448ff3b59a14376a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Card2
+  value: 11
+  isOnBoard: 0

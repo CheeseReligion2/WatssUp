@@ -118,7 +118,7 @@ public class BoardScript : MonoBehaviour
             if (HasTagInsideTrigger("Queen"))
                 totalValue *= 2f;
 
-            handValueText.text = "P1 Hand Value: " + totalValue;
+            handValueText.text = " Hand Value: " + totalValue;
         }
     }
 }
